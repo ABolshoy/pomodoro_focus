@@ -1,10 +1,11 @@
 ## How to use the app
 
 Main tab:
-Launch the timer (30min) and work 100% on your task all along the timer! Once the time is over, take a break (10min).
-Every 5 work sessions, go for a longer break (30min).
+-Launch the timer (30min) and work 100% on your task all along the timer! Once the time is over, take a break (10min).
+-Every 5 work sessions, go for a longer break (30min).
+
 Secondary tab:
-A calendar with the working days you applied the pomodoro method, each day brings you closer to your goals.
+-A calendar with the working days you applied the pomodoro method, each day brings you closer to your goals.
 
 # Welcome to your Expo app 👋
 
