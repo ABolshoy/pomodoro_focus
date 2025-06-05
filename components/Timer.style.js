@@ -8,7 +8,6 @@ export const s = StyleSheet.create({
   },
   timer: {
     backgroundColor: "#E6DCCD",
-    // backgroundColor: "#FF4C3B",
     // backgroundColor: "#1B7F84",
     width: 300,
     height: 300,
@@ -19,6 +18,7 @@ export const s = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 10,
     elevation: 4,
+    overflow: "hidden",
   },
   text: {
     color: "#E6DCCD",
@@ -29,5 +29,19 @@ export const s = StyleSheet.create({
     color: "#1A1A1D",
     fontSize: 50,
     fontWeight: "bold",
+    position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 2,
+  },
+  fillMask: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    width: "100%",
+    backgroundColor: "#FF4C3B",
+    zIndex: 1,
+    borderBottomLeftRadius: 150,
+    borderBottomRightRadius: 150,
   },
 });

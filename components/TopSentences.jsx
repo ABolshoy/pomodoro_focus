@@ -1,12 +1,20 @@
 import { Text, View } from "react-native";
 import { s } from "./TopSentences.style";
 
-export function TopSentences() {
+export function TopSentences({mode}) {
     return (<View>
-        <Text style={s.text}>Time to focus!</Text>
-        <Text style={s.text}>Each session is a step to your goals!</Text>
+        {mode ? (   <>
+                        <Text style={s.text}>Time to focus!</Text>
+                        <Text style={s.text}>Keep going, you're doing great!</Text>
+                    </>)
+                  :
+                  ( <>
+                        <Text style={s.text}>Time to relax!</Text>
+                        <Text style={s.text}>Recharge and come back stronger!</Text>
+                    </>)
+        }
+        
 
-        {/* <Text style={s.text}>Time to relax!</Text>
-        <Text style={s.text}>Break times are as  important as focus!</Text> */}
+
     </View>);
 }

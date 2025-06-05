@@ -3,14 +3,13 @@ import { StyleSheet } from "react-native";
 export const s = StyleSheet.create({
   container: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
     padding: 10,
-    height: 80,
+    height: 100,
     width: "80%",
   },
   middleButton: {
-    flex: 1,
-    marginHorizontal: 10,
+    aspectRatio: 1,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 100,
@@ -19,7 +18,7 @@ export const s = StyleSheet.create({
     backgroundColor: "#1B7F84",
   },
   lateralButtons: {
-    flex: 1,
+    aspectRatio: 1,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 100,
