@@ -8,7 +8,6 @@ export const s = StyleSheet.create({
   },
   timer: {
     backgroundColor: "#E6DCCD",
-    // backgroundColor: "#1B7F84",
     width: 300,
     height: 300,
     borderRadius: 150,
