@@ -77,9 +77,13 @@ export function Timer({
         <Animated.View
           style={[s.fillMask, { height: animatedHeight }]}
         ></Animated.View>
-        <Text style={s.time}>
-          {format(minutes)}:{format(seconds)}
-        </Text>
+        {whichSet === 5 ? (
+          <Text style={s.time}>00:00</Text>
+        ) : (
+          <Text style={s.time}>
+            {format(minutes)}:{format(seconds)}
+          </Text>
+        )}
       </View>
     </View>
   );

@@ -2,7 +2,14 @@ import Foundation from "@expo/vector-icons/Foundation";
 import { TouchableOpacity, View } from "react-native";
 import { s } from "./Buttons.style";
 
-export function Buttons({ onPlay, onPause, onReset, isRunning, whichSet }) {
+export function Buttons({
+  onPlay,
+  onPause,
+  onReset,
+  isRunning,
+  whichSet,
+  onNext,
+}) {
   return (
     <View style={s.container}>
       {whichSet !== 5 ? (
@@ -21,8 +28,8 @@ export function Buttons({ onPlay, onPause, onReset, isRunning, whichSet }) {
           </TouchableOpacity>
         </>
       ) : (
-        <TouchableOpacity style={s.lateralButtons} onPress={onReset}>
-          <Foundation name="refresh" size={24} color="#E6DCCD" />
+        <TouchableOpacity style={s.lateralButtons} onPress={onNext}>
+          <Foundation name="next" size={24} color="#E6DCCD" />
         </TouchableOpacity>
       )}
     </View>
