@@ -1,6 +1,7 @@
 import { useAudioPlayer } from "expo-audio";
 import { useEffect, useRef } from "react";
 import { Animated, Easing, Text, Vibration, View } from "react-native";
+import { saveCompletedPomodoroCycle } from "../utils/sessionStorage";
 import { s } from "./Timer.style";
 
 export function Timer({
@@ -46,6 +47,19 @@ export function Timer({
                 Vibration.vibrate(500);
                 breakSound.play();
                 setWhichSet((prevSet) => prevSet + 1);
+                const cycleEnded = {
+                  id: Date.now(),
+                  duration: Math.floor(duration / 60),
+                  endedAt: new Date().toISOString(),
+                  cycleNumber: whichSet + 1,
+                };
+                saveCompletedPomodoroCycle(cycleEnded)
+                  .then(() => {
+                    console.log(`Cycle ${whichSet + 1} saved!`);
+                  })
+                  .catch((error) => {
+                    console.error("Error saving cycle: ", error);
+                  });
               } else {
                 Vibration.vibrate(500);
                 focusSound.play();
