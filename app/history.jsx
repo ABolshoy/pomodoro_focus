@@ -1,12 +1,12 @@
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import TimerView from "../components/TimerView";
-import { s } from "./index.style";
+import { HistoryView } from "../components/HistoryView";
+import { s } from "./history.style";
 
-export default function App() {
+export default function History() {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={s.container}>
-        <TimerView />
+        <HistoryView />
       </SafeAreaView>
     </SafeAreaProvider>
   );
