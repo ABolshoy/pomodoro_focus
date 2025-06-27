@@ -14,6 +14,10 @@ export const s = StyleSheet.create({
     padding: 20,
     textAlign: "center",
     color: "#E6DCCD",
-    flex: 1,
+  },
+  feedbackText: {
+    fontSize: 17,
+    color: "#E6DCCD",
+    fontWeight: "black",
   },
 });
