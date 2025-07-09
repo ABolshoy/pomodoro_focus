@@ -1,59 +1,77 @@
-## How to use the app
+# Pomodoro App
+Une application mobile de productivité basée sur la méthode Pomodoro, conçue avec React Native + Expo, permettant de gérer ses sessions de focus, de suivre son historique, et de visualiser sa progression via un calendrier de type GitHub.
 
-Main tab:
--Launch the timer (30min) and work 100% on your task all along the timer! Once the time is over, take a break (10min).
--Every 5 work sessions, go for a longer break (30min).
+## 📦 Stack technique
+- React Native + Expo Router
+- AsyncStorage pour la persistance locale
+- Date-fns pour la gestion des dates
+- React Navigation (Tabs via Expo Router) pour la navigation
+- Custom Components pour une interface simple et efficace
 
-Secondary tab:
--A calendar with the working days you applied the pomodoro method, each day brings you closer to your goals.
+## ⚙️ Fonctionnalités principales
+### ✅ 1. Gestion du cycle Pomodoro
+25 minutes de focus + 5 minutes de pause.
+5 sessions par cycle.
+Pause longue à la fin du cycle avec feedback.
 
-# Welcome to your Expo app 👋
+### 🧠 2. Feedback post-cycle
+Saisie facultative d’un ressenti ou d’un bilan à la fin du cycle.
+Feedback stocké dans l’historique.
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+### 📊 3. Historique et visualisation
+Vue calendrier inspirée de GitHub :
+7 colonnes (jours) × 12 lignes (semaines).
+Chaque case représente un jour, colorée selon le nombre de sessions.
+Sélection d’une date pour afficher :
+Le nombre de sessions du jour.
+Les feedbacks associés.
 
-## Get started
+### 🔥 4. Streak de productivité
+Compte le nombre de jours consécutifs actifs.
+Règle personnalisée : une streak est conservée si au moins 5 jours sur 7 ont une session.
 
-1. Install dependencies
+### 📱 5. Gestion du background
+Le timer fonctionne même si l’utilisateur quitte l’app.
+Synchronisation du temps écoulé via AsyncStorage + AppState.
 
-   ```bash
-   npm install
-   ```
+### 🚀 Installation
+bash
+Copier
+Modifier
+git clone https://github.com/tonpseudo/pomodoro-app.git
+cd pomodoro-app
+npm install
+npx expo start
 
-2. Start the app
+### 🗂️ Structure du projet (simplifiée)
 
-   ```bash
-   npx expo start
-   ```
+/components
+  Timer.jsx
+  Buttons.jsx
+  ProgressBar.jsx
+  LargeBreak.jsx
+  Calendar.jsx
+  HistoryView.jsx
+  Streak.jsx
+/app
+  index.jsx      ← page d’accueil (timer)
+  history.jsx    ← historique + calendrier
+/utils
+  sessionStorage.js ← logique d’enregistrement des sessions
+/app/_layout.jsx ← layout global avec barre de navigation
 
-In the output, you'll find options to open the app in a
+### 💾 Stockage local
+Les données sont sauvegardées dans AsyncStorage :
+{
+  "2025-07-08": [
+    {
+      "duration": 25,
+      "timestamp": 1720429800000,
+      "feedback": "Bonne session, concentré !"
+    }
+  ],
+  "2025-07-09": [...]
+}
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+### 👤 Auteur
+Développé par Adam Baroukh – projet personnel de productivité.
