@@ -41,21 +41,24 @@ npm install
 npx expo start
 
 ### 🗂️ Structure du projet (simplifiée)
+```bash
+/components
+  Timer.jsx           ← Composant de minuterie principal
+  Buttons.jsx         ← Boutons de contrôle (Play, Pause, Reset)
+  ProgressBar.jsx     ← Barre de progression du cycle
+  LargeBreak.jsx      ← Interface de pause longue + feedback
+  Calendar.jsx        ← Calendrier type GitHub pour l’historique
+  HistoryView.jsx     ← Vue combinant calendrier + détails de sessions
+  Streak.jsx          ← Affichage du streak (jours consécutifs)
 
-#### /components
-  Timer.jsx
-  Buttons.jsx
-  ProgressBar.jsx
-  LargeBreak.jsx
-  Calendar.jsx
-  HistoryView.jsx
-  Streak.jsx
-#### /app
-  index.jsx      ← page d’accueil (timer)
-  history.jsx    ← historique + calendrier
-#### /utils
-  sessionStorage.js ← logique d’enregistrement des sessions
-#### /app/_layout.jsx ← layout global avec barre de navigation
+/app
+  index.jsx           ← Page d’accueil avec le timer
+  history.jsx         ← Historique des sessions + feedbacks
+  _layout.jsx         ← Layout global avec barre de navigation
+
+/utils
+  sessionStorage.js   ← Logique de persistance des sessions (AsyncStorage)
+```
 
 ### 💾 Stockage local
 Les données sont sauvegardées dans AsyncStorage :
