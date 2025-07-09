@@ -35,10 +35,10 @@ Le timer fonctionne même si l’utilisateur quitte l’app.
 Synchronisation du temps écoulé via AsyncStorage + AppState.
 
 ### 🚀 Installation
-git clone https://github.com/tonpseudo/pomodoro-app.git
-cd pomodoro-app
-npm install
-npx expo start
+- git clone https://github.com/tonpseudo/pomodoro-app.git
+- cd pomodoro-app
+- npm install
+- npx expo start
 
 ### 🗂️ Structure du projet (simplifiée)
 ```bash
@@ -62,6 +62,7 @@ npx expo start
 
 ### 💾 Stockage local
 Les données sont sauvegardées dans AsyncStorage :
+```json
 {
   "2025-07-08": [
     {
@@ -72,6 +73,7 @@ Les données sont sauvegardées dans AsyncStorage :
   ],
   "2025-07-09": [...]
 }
+```
 
 ### 👤 Auteur
 Développé par Adam Baroukh – projet personnel de productivité.
