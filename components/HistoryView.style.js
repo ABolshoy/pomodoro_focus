@@ -17,7 +17,10 @@ export const s = StyleSheet.create({
   },
   feedbackText: {
     fontSize: 17,
-    color: "#E6DCCD",
     fontWeight: "black",
+    backgroundColor: "#E6DCCD",
+    marginBottom: 20,
+    padding: 10,
+    borderRadius: 100,
   },
 });

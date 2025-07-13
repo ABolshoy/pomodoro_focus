@@ -17,11 +17,15 @@ export function Timer({
 }) {
   const animatedHeight = useRef(new Animated.Value(0)).current;
 
-  const breakSound = useAudioPlayer(require("../assets/sounds/break.wav"));
-  const focusSound = useAudioPlayer(require("../assets/sounds/focus.wav"));
+  const breakPlayer = useAudioPlayer(require("../assets/sounds/break.wav"));
+  const focusPlayer = useAudioPlayer(require("../assets/sounds/focus.wav"));
 
-  breakSound.volume = 0.3;
-  focusSound.volume = 0.1;
+  const endTimeRef = useRef(null);
+
+  useEffect(() => {
+    // Pas besoin de setup ou cleanup manual avec useAudioPlayer
+    // Le hook gère automatiquement le cycle de vie
+  }, []);
 
   useEffect(() => {
     const progress = 1 - secondsLeft / duration;
@@ -36,48 +40,76 @@ export function Timer({
   }, [secondsLeft, duration]);
 
   useEffect(() => {
-    if (isRunning) {
-      const interval = setInterval(() => {
-        setSecondsLeft((prev) => {
-          if (prev <= 1) {
-            clearInterval(interval);
-            setIsFocus((prevFocus) => {
-              const newFocus = !prevFocus;
-              if (!newFocus) {
-                Vibration.vibrate(500);
-                breakSound.play();
-                setWhichSet((prevSet) => prevSet + 1);
-                const cycleEnded = {
-                  id: Date.now(),
-                  duration: Math.floor(duration / 60),
-                  endedAt: new Date().toISOString(),
-                  cycleNumber: whichSet + 1,
-                };
-                saveCompletedPomodoroCycle(cycleEnded)
-                  .then(() => {
-                    console.log(`Cycle ${whichSet + 1} saved!`);
-                  })
-                  .catch((error) => {
-                    console.error("Error saving cycle: ", error);
-                  });
-              } else {
-                Vibration.vibrate(500);
-                focusSound.play();
-              }
-              setIsRunning(false);
-              if (whichSet < 4 || (whichSet === 4 && newFocus)) {
-                setTimeout(() => setIsRunning(true), 10);
-              }
-              return newFocus;
-            });
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
+    let interval;
 
-      return () => clearInterval(interval);
+    if (isRunning) {
+      if (!endTimeRef.current) {
+        endTimeRef.current = Date.now() + secondsLeft * 1000;
+      }
+      interval = setInterval(() => {
+        const remaining = Math.max(
+          0,
+          Math.floor((endTimeRef.current - Date.now()) / 1000)
+        );
+        setSecondsLeft(remaining);
+        if (remaining <= 0) {
+          clearInterval(interval);
+          endTimeRef.current = null;
+          setIsFocus((prevFocus) => {
+            const newFocus = !prevFocus;
+
+            console.log(
+              `Timer ended - prevFocus: ${prevFocus}, newFocus: ${newFocus}`
+            );
+
+            // Arrêter le timer d'abord
+            setIsRunning(false);
+
+            if (prevFocus) {
+              // On était en focus, on passe en break
+              console.log(
+                "Switching to BREAK - should vibrate and play break sound"
+              );
+              Vibration.vibrate([0, 500, 200, 500]);
+              breakPlayer.play();
+              setWhichSet((prevSet) => prevSet + 1);
+              const cycleEnded = {
+                id: Date.now(),
+                duration: Math.floor(duration / 60),
+                endedAt: new Date().toISOString(),
+                cycleNumber: whichSet + 1,
+              };
+              saveCompletedPomodoroCycle(cycleEnded)
+                .then(() => {
+                  console.log(`Cycle ${whichSet + 1} saved!`);
+                })
+                .catch((error) => {
+                  console.error("Error saving cycle: ", error);
+                });
+            } else {
+              // On était en break, on passe en focus
+              console.log(
+                "Switching to FOCUS - should vibrate and play focus sound"
+              );
+              Vibration.vibrate([0, 500]);
+              focusPlayer.play();
+            }
+
+            // Redémarrer le timer après un délai plus long
+            if (whichSet < 4 || (whichSet === 4 && newFocus)) {
+              setTimeout(() => {
+                endTimeRef.current = null;
+                setIsRunning(true);
+              }, 100);
+            }
+
+            return newFocus;
+          });
+        }
+      }, 1000);
     }
+
+    return () => clearInterval(interval);
   }, [isRunning, setIsFocus, setWhichSet, setIsRunning, isFocus, whichSet]);
 
   const minutes = Math.floor(secondsLeft / 60);

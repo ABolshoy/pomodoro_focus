@@ -1,32 +1,34 @@
-import { useEffect, useState } from "react";
-import { Text } from "react-native";
-import { View } from "react-native-web";
+import { useEffect, useRef, useState } from "react";
+import { Text, View } from "react-native";
 import { s } from "./LargeBreak.style";
 import { Recap } from "./Recap";
 
-export function LargeBreak({
-  whichSet,
-  setWhichSet,
-  setIsFocus,
-  isFocus,
-  setLargeBreak,
-}) {
+export function LargeBreak({ setWhichSet, setIsFocus, setLargeBreak }) {
   const [secondsLeft, setSecondsLeft] = useState(30 * 60);
   const duration = 30 * 60;
 
+  const endTimeRef = useRef(null);
+
   useEffect(() => {
-    const interval = setInterval(() => {
-      setSecondsLeft((prev) => {
-        if (prev <= 1) {
-          clearInterval(interval);
-          setWhichSet(0);
-          setIsFocus(true);
-          setLargeBreak(false);
-          return 0;
-        }
-        return prev - 1;
-      });
+    let interval;
+    if (!endTimeRef.current) {
+      endTimeRef.current = Date.now() + secondsLeft * 1000;
+    }
+    interval = setInterval(() => {
+      const remaining = Math.max(
+        0,
+        Math.floor((endTimeRef.current - Date.now()) / 1000)
+      );
+      setSecondsLeft(remaining);
+      if (remaining <= 0) {
+        clearInterval(interval);
+        endTimeRef.current = null;
+        setWhichSet(0);
+        setIsFocus(true);
+        setLargeBreak(false);
+      }
     }, 1000);
+
     return () => clearInterval(interval);
   }, []);
 

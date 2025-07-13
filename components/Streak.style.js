@@ -13,11 +13,11 @@ export const s = StyleSheet.create({
     borderColor: "white",
   },
   question: {
-    alignSelf: "flex-start",
+    alignSelf: "center",
   },
   text: {
     color: "#1A1A1D",
-    fontSize: 50,
+    fontSize: 25,
     fontWeight: "bold",
   },
 });

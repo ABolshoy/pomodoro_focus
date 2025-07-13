@@ -42,7 +42,7 @@ export function Streak() {
 
   return (
     <View style={s.container}>
-      <FontAwesome5 name="fire" size={60} color="red" style={s.fire} />
+      <FontAwesome5 name="fire" size={25} color="red" style={s.fire} />
       <Text style={s.text}>{streak}</Text>
       <TouchableOpacity
         onPress={() => {
@@ -53,7 +53,7 @@ export function Streak() {
         }}
         style={s.question}
       >
-        <Octicons name="question" size={24} color="black" />
+        <Octicons name="question" size={20} color="black" style={s.question} />
       </TouchableOpacity>
     </View>
   );

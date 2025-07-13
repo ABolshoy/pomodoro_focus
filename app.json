@@ -11,14 +11,18 @@
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
-        "UIBackgroundModes": ["audio"]
+        "UIBackgroundModes": ["audio"],
+        "NSMicrophoneUsageDescription": "This app uses audio for pomodoro timer notifications.",
+        "UIRequiresPersistentWiFi": false,
+        "UIApplicationExitsOnSuspend": false
       }
     },
     "android": {
       "permissions": [
-        "android.permissions.VIBRATE",
-        "android.permissions.MODIFY_AUDIO_SETTINGS",
-        "android.permission.RECORD_AUDIO"
+        "VIBRATE",
+        "MODIFY_AUDIO_SETTINGS",
+        "WRITE_EXTERNAL_STORAGE",
+        "READ_EXTERNAL_STORAGE"
       ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
@@ -42,7 +46,13 @@
           "backgroundColor": "#ffffff"
         }
       ],
-      "expo-audio"
+      [
+        "expo-audio",
+        {
+          "microphonePermission": "This app uses audio for pomodoro timer notifications.",
+          "recordAudioAndroid": "This app uses audio for pomodoro timer notifications."
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

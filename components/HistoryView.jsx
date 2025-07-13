@@ -37,17 +37,16 @@ export function HistoryView() {
 
   return (
     <View style={s.container}>
-      <Text style={s.topText}>Track it, improve it!</Text>
       <Streak />
       <View style={{ marginVertical: -20 }}>
         <Text style={s.topText}>
-          {selectedDate} – {selected.sessions} session(s)
+          {selectedDate} - {selected.sessions} session(s)
         </Text>
-        {selected.feedbacks.map((f, i) => (
+        {/* {selected.feedbacks.map((f, i) => (
           <Text key={i} style={s.feedbackText}>
-            • {f}
+            {f}
           </Text>
-        ))}
+        ))} */}
       </View>
       <Calendar sessionData={sessionData} onSelectDay={setSelectedDate} />
     </View>

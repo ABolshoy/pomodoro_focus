@@ -57,9 +57,7 @@ export default function TimerView() {
           </>
         ) : (
           <LargeBreak
-            whichSet={whichSet}
             setWhichSet={setWhichSet}
-            ifFocus={isFocus}
             setIsFocus={setIsFocus}
             setLargeBreak={setLargeBreak}
           />
