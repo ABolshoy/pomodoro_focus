@@ -1,6 +1,7 @@
 import { useAudioPlayer } from "expo-audio";
 import { useEffect, useRef } from "react";
 import { Animated, Easing, Text, Vibration, View } from "react-native";
+import { schedulePomodoroNotification } from "../utils/notifications";
 import { saveCompletedPomodoroCycle } from "../utils/sessionStorage";
 import { s } from "./Timer.style";
 
@@ -57,16 +58,13 @@ export function Timer({
           endTimeRef.current = null;
           setIsFocus((prevFocus) => {
             const newFocus = !prevFocus;
-
             console.log(
               `Timer ended - prevFocus: ${prevFocus}, newFocus: ${newFocus}`
             );
-
-            // Arrêter le timer d'abord
             setIsRunning(false);
-
             if (prevFocus) {
               // On était en focus, on passe en break
+				schedulePomodoroNotification(`Cycle ${whichSet + 1} terminé — Bonne pause !`);
               console.log(
                 "Switching to BREAK - should vibrate and play break sound"
               );
@@ -88,6 +86,7 @@ export function Timer({
                 });
             } else {
               // On était en break, on passe en focus
+			  schedulePomodoroNotification(`Pause terminée — Focus !`);
               console.log(
                 "Switching to FOCUS - should vibrate and play focus sound"
               );
@@ -95,7 +94,6 @@ export function Timer({
               focusPlayer.play();
             }
 
-            // Redémarrer le timer après un délai plus long
             if (whichSet < 4 || (whichSet === 4 && newFocus)) {
               setTimeout(() => {
                 endTimeRef.current = null;
