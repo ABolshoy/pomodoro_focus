@@ -36,7 +36,7 @@ export async function saveCompletedPomodoroCycle(completedCycleData) {
     todayCycles.push(completedCycleData);
     history[today] = todayCycles;
     await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(history));
-    console.log("Cycle pomodoro OK!");
+    // console.log("Cycle pomodoro OK!");
   } catch (err) {
     console.error("Error, saving pomodoro cycle: ", err);
   }
@@ -45,13 +45,13 @@ export async function saveCompletedPomodoroCycle(completedCycleData) {
 export const logCurrentStorage = async () => {
   try {
     const data = await getAllCyclesHistory();
-    console.log(
-      "\n--- Contenu actuel de AsyncStorage (Pomodoro History) ---\n",
-      JSON.stringify(data, null, 2)
-    );
-    console.log(
-      "\n---------------------------------------------------------\n"
-    );
+    // console.log(
+    // "\n--- Contenu actuel de AsyncStorage (Pomodoro History) ---\n",
+    // JSON.stringify(data, null, 2)
+    // );
+    // console.log(
+    // "\n---------------------------------------------------------\n"
+    // );
   } catch (e) {
     console.error("Erreur lors de l'affichage du stockage :", e);
   }
@@ -67,7 +67,7 @@ export async function saveCompletedPomodoroSession(sessionData) {
     history[today] = todayCycles;
 
     await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(history));
-    console.log("🎉 SESSION POMODORO COMPLÈTE SAUVEGARDÉE !");
+    // console.log("🎉 SESSION POMODORO COMPLÈTE SAUVEGARDÉE !");
   } catch (err) {
     console.error("Erreur lors de la sauvegarde de la session complète :", err);
   }

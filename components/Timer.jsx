@@ -21,6 +21,9 @@ export function Timer({
   const breakPlayer = useAudioPlayer(require("../assets/sounds/break.wav"));
   const focusPlayer = useAudioPlayer(require("../assets/sounds/focus.wav"));
 
+  breakPlayer.volume = 1.0;
+  focusPlayer.volume = 0.4;
+
   const endTimeRef = useRef(null);
 
   useEffect(() => {
@@ -58,17 +61,20 @@ export function Timer({
           endTimeRef.current = null;
           setIsFocus((prevFocus) => {
             const newFocus = !prevFocus;
-            console.log(
-              `Timer ended - prevFocus: ${prevFocus}, newFocus: ${newFocus}`
-            );
+            // console.log(
+            //   `Timer ended - prevFocus: ${prevFocus}, newFocus: ${newFocus}`
+            // );
             setIsRunning(false);
             if (prevFocus) {
               // On était en focus, on passe en break
-				schedulePomodoroNotification(`Cycle ${whichSet + 1} terminé — Bonne pause !`);
-              console.log(
-                "Switching to BREAK - should vibrate and play break sound"
+              schedulePomodoroNotification(
+                `Cycle ${whichSet + 1} terminé — Bonne pause !`
               );
-              Vibration.vibrate([0, 500, 200, 500]);
+              // console.log(
+              //   "Switching to BREAK - should vibrate and play break sound"
+              // );
+              // Vibration.vibrate([0, 500, 200, 500]);
+              breakPlayer.seekTo(0);
               breakPlayer.play();
               setWhichSet((prevSet) => prevSet + 1);
               const cycleEnded = {
@@ -86,11 +92,12 @@ export function Timer({
                 });
             } else {
               // On était en break, on passe en focus
-			  schedulePomodoroNotification(`Pause terminée — Focus !`);
+              schedulePomodoroNotification(`Pause terminée — Focus !`);
               console.log(
                 "Switching to FOCUS - should vibrate and play focus sound"
               );
-              Vibration.vibrate([0, 500]);
+              // Vibration.vibrate([0, 500]);
+              focusPlayer.seekTo(0);
               focusPlayer.play();
             }
 

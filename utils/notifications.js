@@ -1,9 +1,10 @@
-import * as Notifications from 'expo-notifications';
-import { Platform } from 'react-native';
+import * as Notifications from "expo-notifications";
+import { Platform } from "react-native";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
-    shouldShowAlert: true,
+    shouldShowBanner: true, // Affiche la bannière de notification
+    shouldShowList: true, // Ajoute la notification à la liste
     shouldPlaySound: true,
     shouldSetBadge: false,
   }),
@@ -11,18 +12,18 @@ Notifications.setNotificationHandler({
 
 export async function requestNotificationPermissions() {
   const { status } = await Notifications.getPermissionsAsync();
-  if (status !== 'granted') {
+  if (status !== "granted") {
     await Notifications.requestPermissionsAsync();
   }
 }
 
 export async function setupNotificationChannel() {
-  if (Platform.OS === 'android') {
-    await Notifications.setNotificationChannelAsync('default', {
-      name: 'default',
+  if (Platform.OS === "android") {
+    await Notifications.setNotificationChannelAsync("default", {
+      name: "default",
       importance: Notifications.AndroidImportance.MAX,
       vibrationPattern: [0, 250, 500, 250],
-      sound: 'default',
+      sound: "default",
     });
   }
 }

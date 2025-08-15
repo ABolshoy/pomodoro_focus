@@ -25,7 +25,7 @@ export function Recap() {
       await saveCompletedPomodoroSession(sessionComplete);
 
       setIsSaved(true);
-      console.log("SESSION COMPLETE SAUVEGARDEE!");
+      // console.log("SESSION COMPLETE SAUVEGARDEE!");
     } catch (error) {
       console.error("Error saving session: ", error);
     }
